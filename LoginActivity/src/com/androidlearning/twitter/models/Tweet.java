@@ -1,11 +1,16 @@
 package com.androidlearning.twitter.models;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import android.text.format.DateUtils;
 
 public class Tweet implements Serializable{
 
@@ -48,6 +53,24 @@ public class Tweet implements Serializable{
 		this.user = user;
 	}
 
+	public String getRelativeDate(){
+		String twitterFormat = "EEE MMM dd HH:mm:ss ZZZZZ yyyy";
+		SimpleDateFormat sf = new SimpleDateFormat(twitterFormat, Locale.ENGLISH);
+		sf.setLenient(true);
+	 
+		String relativeDate = "";
+		try {
+			long dateMillis = sf.parse(this.date).getTime();
+			relativeDate = DateUtils.getRelativeTimeSpanString(dateMillis,
+					System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS).toString();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	 
+		return relativeDate;
+		
+	}
+	
 	public static Tweet parseJsonObject(JSONObject json) {
 		Tweet tweet = new Tweet();
 		try {

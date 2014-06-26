@@ -48,7 +48,7 @@ public class TweetAdapter extends ArrayAdapter<Tweet> {
 		
 		userName.setText(Html.fromHtml(formattedName));
 		userTweet.setText(Html.fromHtml(tweet.getTweet()));
-		tweetTimestamp.setText(tweet.getDate());
+		tweetTimestamp.setText(tweet.getRelativeDate());
 		return view;
 	}
 }
