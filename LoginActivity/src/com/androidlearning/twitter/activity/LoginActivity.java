@@ -41,12 +41,13 @@ public class LoginActivity extends OAuthLoginActivity<TwitterRestClient> {
 	public void onLoginSuccess() {
 
 		prefs = this.getSharedPreferences("user_info", Context.MODE_PRIVATE);
-		MyTwitterApp.getRestClient().getUserInfo(new JsonHttpResponseHandler() {
+		MyTwitterApp.getRestClient().getMyInfo(new JsonHttpResponseHandler() {
 			@Override
 			public void onSuccess(JSONObject json) {
 						User user = User.parse(json);
     					user.save();
     					prefs.edit().putInt("user_id", user.getUserId()).commit();
+    					prefs.edit().putString("screen_name", user.getScreenName()).commit();
 			}
 		});
 		Intent i = new Intent(this, HomeFeedActivity.class);

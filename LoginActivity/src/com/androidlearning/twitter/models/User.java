@@ -28,6 +28,39 @@ public class User extends Model implements Serializable {
 
 	@Column(name = "screen_name")
 	String screenName;
+	
+	@Column(name = "followers_count")
+	String followersCount;
+
+	@Column(name = "following")
+	String following;
+
+	@Column(name = "tagline")
+	String tagLine;
+
+	public String getFollowersCount() {
+		return followersCount;
+	}
+
+	public String getFollowing() {
+		return following;
+	}
+
+	public String getTagLine() {
+		return tagLine;
+	}
+
+	public void setFollowersCount(String followersCount) {
+		this.followersCount = followersCount;
+	}
+
+	public void setFollowing(String following) {
+		this.following = following;
+	}
+
+	public void setTagLine(String tagLine) {
+		this.tagLine = tagLine;
+	}
 
 	public User() {}
 
@@ -84,6 +117,9 @@ public class User extends Model implements Serializable {
 			user.location = json.getString("location");
 			user.userProfileImage = json.getString("profile_image_url");
 			user.screenName = json.getString("screen_name");
+			user.followersCount =json.getString("followers_count");
+			user.following = json.getString("friends_count");
+			user.tagLine = json.getString("description");
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}

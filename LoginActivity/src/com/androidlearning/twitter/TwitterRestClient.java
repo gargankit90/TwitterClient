@@ -7,6 +7,7 @@ import android.content.Context;
 
 import com.codepath.oauth.OAuthBaseClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 /*
@@ -37,7 +38,7 @@ public class TwitterRestClient extends OAuthBaseClient {
         client.get(apiUrl, params, handler);
     }
     
-    public void getUserInfo(AsyncHttpResponseHandler handler) {
+    public void getMyInfo(AsyncHttpResponseHandler handler) {
     	String apiUrl = getApiUrl("account/verify_credentials.json");
     	client.get(apiUrl, handler);
     }
@@ -46,7 +47,25 @@ public class TwitterRestClient extends OAuthBaseClient {
     	String apiUrl = getApiUrl("statuses/update.json");
     	client.post(apiUrl, params, handler);
     }
+
+	public void getMentionTimeLine(AsyncHttpResponseHandler handler, RequestParams params) {
+		// TODO Auto-generated method stub
+        String apiUrl = getApiUrl("statuses/mentions_timeline.json");
+        client.get(apiUrl, params, handler);
+	}
     
+	public void getUserTimeLine(String screenName,AsyncHttpResponseHandler handler, RequestParams params) {
+		params.put("screen_name", screenName);
+        String apiUrl = getApiUrl("statuses/user_timeline.json");
+        client.get(apiUrl,params, handler);
+	}
+	
+	public void getUserInfoByScreenName(String screenName, AsyncHttpResponseHandler handler) {
+		RequestParams params = new RequestParams();
+		params.put("screen_name", screenName);
+		String apiUrl = getApiUrl("users/show.json");
+		client.get(apiUrl, params, handler);
+	}
     
     /* 1. Define the endpoint URL with getApiUrl and pass a relative path to the endpoint
      * 	  i.e getApiUrl("statuses/home_timeline.json");

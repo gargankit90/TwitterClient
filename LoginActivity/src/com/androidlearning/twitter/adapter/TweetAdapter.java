@@ -3,16 +3,17 @@ package com.androidlearning.twitter.adapter;
 import java.util.List;
 
 import android.content.Context;
-import android.net.Uri;
+import android.content.Intent;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.androidlearning.twitter.ProfileActivity;
 import com.androidlearning.twitter.R;
 import com.androidlearning.twitter.models.Tweet;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -26,6 +27,7 @@ public class TweetAdapter extends ArrayAdapter<Tweet> {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		Tweet tweet = getItem(position);
+		final String screenName = tweet.getUser().getScreenName();
 		View view = convertView;
 		if (view == null) {
 			LayoutInflater inflator = LayoutInflater.from(getContext());
@@ -35,6 +37,16 @@ public class TweetAdapter extends ArrayAdapter<Tweet> {
 				.findViewById(R.id.user_image);
 		ImageLoader.getInstance().displayImage(
 				tweet.getUser().getProfileUserImage(), userProfileImage);
+		userProfileImage.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent i = new Intent(getContext(),ProfileActivity.class);
+				i.putExtra("screen_name", screenName);
+				getContext().startActivity(i);
+			}
+		});
 
 		TextView userName = (TextView) view.findViewById(R.id.tvName);
 		TextView userTweet = (TextView) view.findViewById(R.id.tvBody);
