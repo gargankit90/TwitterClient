@@ -14,4 +14,4 @@ User is taken back to home timeline with new tweet visible in timeline
 Optional
 Storing Userinfo in localDb. Continuing with storing Tweets in localdb.
 
-![Video Walkthrough](Twitterpart1.1.gif)
+![Video Walkthrough](Twitterpart2.gif)
